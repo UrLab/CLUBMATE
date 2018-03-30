@@ -74,9 +74,9 @@ void color1(uint8_t red, uint8_t green, uint8_t blue)
 {
 	rgb pix[1];
 
-	pix[0].r = red;
-	pix[0].g = green;
-	pix[0].b = blue;
+  pix[0].r = green;
+  pix[0].g = blue;
+  pix[0].b = red;  // don't know why but ... voila
 
 	// Display the LEDs
 	myLeds.sendPixels(1, pix);
@@ -94,9 +94,9 @@ void color1N(uint8_t red, uint8_t green, uint8_t blue)
 {
 	rgb pix[1];
 
-	pix[0].r = red;
-	pix[0].g = green;
-	pix[0].b = blue;
+	pix[0].r = green;
+	pix[0].g = blue;
+	pix[0].b = red;  // don't know why but ... voila
 
 	// Disable interupts, save the old interupt state
 	const uint8_t oldSREG = SREG;
