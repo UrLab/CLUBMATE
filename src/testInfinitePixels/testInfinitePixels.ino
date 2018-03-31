@@ -32,6 +32,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 #include <FAB_LED.h>
+#include "alpha.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief This parameter says how many LEDs are in your strip.
@@ -177,7 +178,7 @@ void fade1N(uint8_t brightness, uint8_t incLevel)
 /// If this feature fails, you may see only 1 pixel lit, or a varying number
 /// of pixels glitching on and off.
 ////////////////////////////////////////////////////////////////////////////////
-void rainbow1N(uint8_t brightness)
+void rainbow1N(uint8_t brightness, int delay_)
 {
   rgb pix[1];
 
@@ -196,7 +197,33 @@ void rainbow1N(uint8_t brightness)
       colorWheel(1, pix[0].r, pix[0].g, pix[0].b);
     }
     SREG = oldSREG;
-    delay(100);
+    delay(delay_);
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief This method display a char
+////////////////////////////////////////////////////////////////////////////////
+void show(char* w, uint8_t red, uint8_t green, uint8_t blue)
+{
+  // row 1 and 3 are horizontally reversed in alpha (currently only for r and l)
+  // it's probably a better idea to change this function to reverse this row here
+  // instead of inside alpha.h
+  for (int i = 0; i < strlen(w); i++){
+    int c = w[i] - 97;
+
+    for (int pixel_index = 0; pixel_index < 20; pixel_index++)
+    {
+      if (alpha[c][pixel_index] == 1)
+      {
+        color1(red, green, blue);
+      }
+      else
+      {
+        color1(1, 1, 1);
+      }
+    }
   }
 }
 
@@ -222,33 +249,32 @@ void setup()
 /// @brief This method is automatically called repeatedly after setup() has run.
 /// It is the main loop, and it calls all the other demo methods declared below.
 ////////////////////////////////////////////////////////////////////////////////
+
 void loop()
 {
 
-	// Show 1 bright pixel, R, G then B.
+  show("urlab", 255, 0, 105);  // other letters haven't been test
+  holdAndClear(1000,10);
+
+  show("urlab", 80, 100, 0);
+  holdAndClear(1000,10);
+
+  show("urlab", 255, 111, 0);
+  holdAndClear(1000,10);
+
 
   /*
+  // Show 1 black pixel, R, G then B.
+  color1(1,1,1);  // turn off. (zero doesn't work)
 	color1(255,0,0);
 	color1(0,255,0);
 	color1(0,0,255);
-  
-	holdAndClear(1000,200);
- */
 
-	// Show numPixels dim pixels, R, G then B 
-	// color1N(255,0,0);
-	// holdAndClear(1000,200);
-	// color1N(0,255,0);
-	// holdAndClear(1000,200);
-	// color1N(0,0,255);
-	// holdAndClear(1000,200);
+  holdAndClear(1000,20);
+  */
 
   // Rainbows
-  
-  rainbow1N(255);
-  /*
-  holdAndClear(1000,200);
-  fade1N(16, 1);
-  holdAndClear(1000,200);
-  */
+
+  // rainbow1N(255, 1000);
+  // holdAndClear(1000,20);
 }
