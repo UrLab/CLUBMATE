@@ -12,3 +12,6 @@ TODO :
 * documentation about hardware and how to build it
 * code some software
 * documentation about software and how to run it
+
+
+![Showing urlab text on C.L.U.B.M.A.T.E.](https://framapic.org/Llv9A0hHWSZ0/bHXKOhyOQBtI.jpg)
