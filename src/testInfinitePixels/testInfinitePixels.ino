@@ -34,6 +34,9 @@
 #include <FAB_LED.h>
 #include "alpha.h"
 
+#define CRATE_WIDTH 4
+#define CRATE_HEIGHT 5
+
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief This parameter says how many LEDs are in your strip.
 /// If you power the LED strip through your Arduino USB power supply, and not
@@ -210,20 +213,23 @@ void rainbow1N(uint8_t brightness, int delay_)
 void show(char* w, uint8_t white, uint8_t red, uint8_t green, uint8_t blue)
 {
   for (int i = 0; i < strlen(w); i++){
-    int c = w[i] - 97;
-
-    for (int pixel_index = 0; pixel_index < 20; pixel_index++)
+  int c = w[i] - 97;
+  
+  for (int y = 0; y < CRATE_HEIGHT; y++)
+    for (int x = 0; x < CRATE_WIDTH; x++)
     {
+      int pixel_index = (y * CRATE_WIDTH) + ((y % 2 != 0) ? (CRATE_WIDTH - 1 - x) : x);
+      
       if (alpha[c][pixel_index] == 1)
       {
-        color1(white, red, green, blue);
+      color1(white, red, green, blue);
       }
       else
       {
-        color1(1, 0, 0, 0);
+      color1(1, 1, 1, 1);
       }
     }
-}
+  }
 }
 
 
