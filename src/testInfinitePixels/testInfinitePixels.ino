@@ -16,19 +16,12 @@
 /// drive them with my Arduino Uno, provided I do not change the LED colors
 /// or brightness from the original code.
 ///
-/// Visual display:
-///
-/// 1 pixel will go red, green, blue, full brightness.
-/// All pixels will go red green blue low brightness.
-/// All pixels will show rainbows.
-/// All pixels will fade through all colors of the rainbow.
-///
 /// Hardware configuration:
 ///
 /// This example works for a regular Arduino board connected to your PC via the
 /// USB port to the Arduino IDE (integrated development environment used to
 /// compile and load an arduino sketch program to your arduino board).
-/// By default it is expected the LED strip is on port D6.
+/// By default it is expected the LED strip is on port D2.
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 #include <FAB_LED.h>
@@ -37,22 +30,9 @@
 #define CRATE_WIDTH 4
 #define CRATE_HEIGHT 5
 
-////////////////////////////////////////////////////////////////////////////////
-/// @brief This parameter says how many LEDs are in your strip.
-/// If you power the LED strip through your Arduino USB power supply, and not
-/// through a separate power supply, make sure to not turn on too many LEDs.
 const uint16_t numPixels = 1000; // Max: 64K pixels
 
-////////////////////////////////////////////////////////////////////////////////
-/// @brief this definition allows you to select which digital port the LED strip
-/// is attached to: Valid are ports A through D, 0 to 7. For AtTiny, you may
-/// want to use port D2 instead of D6.
-/// Uncomment the LED strip model you are using and comment the others. By
-/// default the ws2812b LED strip is used.
-//ws2812b<D,6> myLeds;
 sk6812b<D,2> myLeds;
-//apa104<D,2> myLeds;
-//apa106<D,2> myLeds;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -67,8 +47,6 @@ void holdAndClear(uint16_t on_time, uint16_t off_time)
 	delay(off_time);
 	//PORTB ^= 1U << 5; // Off
 }
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Display one pixel with one solid color for 1 second.
@@ -153,7 +131,7 @@ static void colorWheel(uint8_t incStep, uint8_t & R, uint8_t & G, uint8_t & B)
 ////////////////////////////////////////////////////////////////////////////////
 void fade1N(uint8_t brightness, uint8_t incLevel)
 {
-	rgb pix[1];
+	grbw_t pix[1];
 
 	// Initialize the colors on the array
 	pix[0].r = brightness;
@@ -185,7 +163,7 @@ void fade1N(uint8_t brightness, uint8_t incLevel)
 ////////////////////////////////////////////////////////////////////////////////
 void rainbow1N(uint8_t brightness, int delay_)
 {
-  rgb pix[1];
+  grbw_t pix[1];
 
   // Initialize the colors on the array
   pix[0].r = brightness;
@@ -226,7 +204,7 @@ void show(char* w, uint8_t white, uint8_t red, uint8_t green, uint8_t blue)
       }
       else
       {
-      color1(1, 1, 1, 1);
+      color1(1, 0, 0, 0);
       }
     }
   }
@@ -239,14 +217,7 @@ void show(char* w, uint8_t white, uint8_t red, uint8_t green, uint8_t blue)
 ////////////////////////////////////////////////////////////////////////////////
 void setup()
 {
-	// Turn off first 1000 LEDs
 	myLeds.clear(1000);
-
-	// Configure a strobe signal to Port B5 for people who
-	// use oscilloscopes to look at the signal sent to the LEDs
-	// Port B5 corresponds to the Arduino Uno pin13 (LED).
-	//DDRB |= 1U << 5;
-	//PORTB &= ~(1U << 5);
 }
 
 
@@ -257,7 +228,6 @@ void setup()
 
 void loop()
 {
-
   show("urlab", 0, 255, 0, 105);
   holdAndClear(1000,10);
 
@@ -266,19 +236,4 @@ void loop()
 
   show("urlab", 0, 255, 111, 0);
   holdAndClear(1000,10);
-
-  /*
-  // Show 1 black pixel, R, G then B.
-  color1(1,1,1);  // turn off. (zero doesn't work)
-	color1(255,0,0);
-	color1(0,255,0);
-	color1(0,0,255);
-
-  holdAndClear(1000,20);
-  */
-
-  // Rainbows
-
-  // rainbow1N(255, 1000);
-  // holdAndClear(1000,20);
 }
