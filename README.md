@@ -14,4 +14,4 @@ TODO :
 * documentation about software and how to run it
 
 
-![Showing urlab text on C.L.U.B.M.A.T.E.](https://framapic.org/Llv9A0hHWSZ0/bHXKOhyOQBtI.jpg)
+![Showing urlab text on C.L.U.B.M.A.T.E.](https://framapic.org/l3dHXUKKojOr/PqEPaVc097nu.jpg)
