@@ -47,7 +47,7 @@ const uint16_t numPixels = 1000; // Max: 64K pixels
 /// Uncomment the LED strip model you are using and comment the others. By
 /// default the ws2812b LED strip is used.
 //ws2812b<D,6> myLeds;
-sk6812<D,2> myLeds;
+sk6812b<D,2> myLeds;
 //apa104<D,2> myLeds;
 //apa106<D,2> myLeds;
 
@@ -71,13 +71,14 @@ void holdAndClear(uint16_t on_time, uint16_t off_time)
 /// @brief Display one pixel with one solid color for 1 second.
 /// Each value can be from 0 to 255.
 ////////////////////////////////////////////////////////////////////////////////
-void color1(uint8_t red, uint8_t green, uint8_t blue)
+void color1(uint8_t white, uint8_t red, uint8_t green, uint8_t blue)
 {
-	rgb pix[1];
+	grbw_t pix[1];
 
-  pix[0].r = green;
-  pix[0].g = blue;
-  pix[0].b = red;  // don't know why but ... voila
+  pix[0].w = white;
+  pix[0].r = red;
+  pix[0].g = green;
+  pix[0].b = blue;
 
 	// Display the LEDs
 	myLeds.sendPixels(1, pix);
@@ -91,13 +92,14 @@ void color1(uint8_t red, uint8_t green, uint8_t blue)
 /// If this feature fails, you may see only 1 pixel lit, or a varying number
 /// of pixels glitching on and off.
 ////////////////////////////////////////////////////////////////////////////////
-void color1N(uint8_t red, uint8_t green, uint8_t blue)
+void color1N(uint8_t white, uint8_t red, uint8_t green, uint8_t blue)
 {
-	rgb pix[1];
+	grbw_t pix[1];
 
-	pix[0].r = green;
-	pix[0].g = blue;
-	pix[0].b = red;  // don't know why but ... voila
+  pix[0].w = white;
+	pix[0].r = red;
+	pix[0].g = green;
+	pix[0].b = blue;
 
 	// Disable interupts, save the old interupt state
 	const uint8_t oldSREG = SREG;
@@ -205,11 +207,8 @@ void rainbow1N(uint8_t brightness, int delay_)
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief This method display a char
 ////////////////////////////////////////////////////////////////////////////////
-void show(char* w, uint8_t red, uint8_t green, uint8_t blue)
+void show(char* w, uint8_t white, uint8_t red, uint8_t green, uint8_t blue)
 {
-  // row 1 and 3 are horizontally reversed in alpha (currently only for r and l)
-  // it's probably a better idea to change this function to reverse this row here
-  // instead of inside alpha.h
   for (int i = 0; i < strlen(w); i++){
     int c = w[i] - 97;
 
@@ -217,14 +216,14 @@ void show(char* w, uint8_t red, uint8_t green, uint8_t blue)
     {
       if (alpha[c][pixel_index] == 1)
       {
-        color1(red, green, blue);
+        color1(white, red, green, blue);
       }
       else
       {
-        color1(1, 1, 1);
+        color1(1, 0, 0, 0);
       }
     }
-  }
+}
 }
 
 
@@ -253,15 +252,14 @@ void setup()
 void loop()
 {
 
-  show("urlab", 255, 0, 105);  // other letters haven't been test
+  show("urlab", 0, 255, 0, 105);
   holdAndClear(1000,10);
 
-  show("urlab", 80, 100, 0);
+  show("urlab", 0, 80, 100, 0);
   holdAndClear(1000,10);
 
-  show("urlab", 255, 111, 0);
+  show("urlab", 0, 255, 111, 0);
   holdAndClear(1000,10);
-
 
   /*
   // Show 1 black pixel, R, G then B.
