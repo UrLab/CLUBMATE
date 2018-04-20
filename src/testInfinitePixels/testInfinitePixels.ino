@@ -24,6 +24,7 @@
 /// By default it is expected the LED strip is on port D2.
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+#include <math.h>
 #include <FAB_LED.h>
 #include "alpha.h"
 
@@ -236,4 +237,18 @@ void loop()
 
   show("urlab", 0, 255, 111, 0);
   holdAndClear(1000,10);
+
+
+  /*
+  for (int led = 0; led < 255; led++)
+  {
+    color1N(
+      0,
+      (uint8_t)(sin(led) * 127 + 128),
+      (uint8_t)(sin(led + 3.141592635/2) * 127 + 128),
+      (uint8_t)(sin(led + 3.141592635) * 127 + 128)
+     );
+  }
+  holdAndClear(1000, 10);
+  */
 }
