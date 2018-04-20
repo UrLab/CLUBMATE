@@ -229,6 +229,13 @@ void setup()
 
 void loop()
 {
+  /*
+  // debug the power supply with "white" color :
+
+  color1N(0, 255, 255, 255);
+  holdAndClear(1000, 10);
+  */
+
   show("urlab", 0, 255, 0, 105);
   holdAndClear(1000,10);
 
