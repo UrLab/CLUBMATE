@@ -40,7 +40,7 @@ class RollingMatrix {
       this->w = width;
       this->h = height;
 
-      this->w_shift = -1;
+      this->w_shift = 0;
       this->h_shift = 0;
 
       this->matrix = (uint32_t **) malloc(sizeof(uint32_t) * w * h);
@@ -116,11 +116,10 @@ class CMMatrix: public RollingMatrix {
         ++crate_coord
       ) {
         for (coord led_coord : IN_CRATE_ORDER) {
-          int x_ = (crate_coord->x * CRATE_H) + led_coord.x;
-          int y_ = (crate_coord->y * CRATE_W) + led_coord.y;
+          int x_ = (crate_coord->x * CRATE_W) + led_coord.x;
+          int y_ = (crate_coord->y * CRATE_H) + led_coord.y;
 
           uint32_t tmp = mget(x_, y_);
-          //std::cout << "Set " << tmp << " to " << x_ << ", " << y_ << std::endl;
 
           *led = tmp;
           led++;
@@ -149,46 +148,79 @@ void color1(uint8_t white, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 
+
+coord crate_order[4] = {
+{0, 0}, {1, 0},
+{1, 1}, {0, 1},
+};
+CMMatrix cm = CMMatrix(8, 10, crate_order);
+
 void setup() {
   myLeds.clear(40);
-  Serial.begin(19200);
 }
 
 
-
-void loop() {
-
-  coord crate_order[4] = {
-    {0, 0}, {1, 0},
-    {1, 1}, {0, 1},
-  };
-  CMMatrix cm = CMMatrix(8, 10, crate_order);
-
-  uint32_t *test = cm.render();
-  for (int led = 0; led < 80; led++) {
-    Serial.println(String(test[led]));
-    if (test[led] == 1 ) {
-      color1(255, 255, 255, 255);
+void show(int l) {
+    if (l == 1 ) {
+      color1(255, 0, 0, 0);
+    } else if (l == 2) {
+      color1(0, 255, 0, 0);
+    } else if (l == 3) {
+      color1(0, 0, 255, 0);
+    } else if (l == 4) {
+      color1(0, 0, 0, 255);
     } else {
       color1(0, 0, 0, 0);
     }
+}
+
+
+void loop() {
+  uint32_t *test = cm.render();
+  for (int led = 0; led < 80; led++) {
+    show(test[led]);
   }
 
   delay(100);
 
-  uint32_t column[10] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+  uint32_t column[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   for (int i = 0; i < 10; i++) {
-    cm.push_left(column);
+    cm.push_right(column);
     test = cm.render();
     for (int led = 0; led < 80; led++) {
-      if (test[led] == 1 ) {
-        color1(255, 255, 255, 255);
-      } else {
-        color1(0, 0, 0, 0);
-      }
+        show(test[led]);
     }
-    delay(100);
+    delay(300);
   }
 
+  uint32_t column2[10] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+  for (int i = 0; i < 10; i++) {
+    cm.push_left(column2);
+    test = cm.render();
+    for (int led = 0; led < 80; led++) {
+        show(test[led]);
+    }
+    delay(300);
+  }
+
+  uint32_t row[8] = {2, 2, 2, 2, 2, 2, 2, 2};
+  for (int i = 0; i < 10; i++) {
+    cm.push_top(row);
+    test = cm.render();
+    for (int led = 0; led < 80; led++) {
+        show(test[led]);
+    }
+    delay(300);
+  }
+
+  uint32_t row2[8] = {3, 3, 3, 3, 3, 3, 3, 3};
+  for (int i = 0; i < 10; i++) {
+    cm.push_bottom(row2);
+    test = cm.render();
+    for (int led = 0; led < 80; led++) {
+        show(test[led]);
+    }
+    delay(300);
+  }
 
 }
