@@ -42,11 +42,11 @@ uint8_t blue = pixels >> 24;
 * `void mset(uint8_t x, uint8_t y, uint32_t v);`
   * set pixel at x, y
 
-* Push row/column on a size of the matrix to rotate the whol content :
+* Push new row/column on a side of the matrix to rotate the whole content :
   * `void push_right(uint32_t* column);`
   * `void push_left(uint32_t* column);`
   * `void push_bottom(uint32_t* row);`
   * `void push_top(uint32_t* row);`
 
 * `uint32_t* render();`
-  * render the matrix as an array of led to send in the wire
+  * render the matrix as an array of led to "send in the wire"
