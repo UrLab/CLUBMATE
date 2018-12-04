@@ -25,8 +25,8 @@ class RollingMatrix {
 
     void push_right(uint32_t* column);
     void push_left(uint32_t* column);
-    void push_bottom(uint32_t* column);
-    void push_top(uint32_t* column);
+    void push_bottom(uint32_t* row);
+    void push_top(uint32_t* row);
 };
 
 class CMMatrix: public RollingMatrix {

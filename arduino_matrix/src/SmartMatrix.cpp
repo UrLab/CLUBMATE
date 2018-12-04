@@ -49,16 +49,16 @@ void RollingMatrix::push_left(uint32_t* column) {
     this->w_shift = (this->w_shift - 1 + this->w) % this->w;
 }
 
-void RollingMatrix::push_bottom(uint32_t* column) {
+void RollingMatrix::push_bottom(uint32_t* row) {
     for  (uint8_t i = 0; i < this->w; i++) {
-        mset(i, 0, column[i]);
+        mset(i, 0, row[i]);
     }
     this->h_shift = (this->h_shift + 1) % this->h;
 }
 
-void RollingMatrix::push_top(uint32_t* column) {
+void RollingMatrix::push_top(uint32_t* row) {
     for (uint8_t i = 0; i < this->w; i++) {
-        mset(i, this->h - 1, column[i]);
+        mset(i, this->h - 1, row[i]);
     }
     this->h_shift = (this->h_shift - 1 + this->h) % this->h;
 }
