@@ -21,6 +21,18 @@ Useful commands :
 
 Doc :
 ---------
+Pixel are store in int of 32 bits `uint32_t`. Each color is on 8 bits:
+00000000 00000000 00000000 00000000
+  BLUE    GREEN     RED     WHITE
+
+```
+uint8_t white_= pixels;
+uint8_t red = pixels >> 8;
+uint8_t green = pixels >> 16;
+uint8_t blue = pixels >> 24;
+```
+
+
 * `CMMatrix(uint8_t width, uint8_t height, coord* crate_order);`
   * Width/height of the matrix in pixel
   * List coordinates of each crate in "wire order" ex: {{0, 0}, {0, 1}}

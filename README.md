@@ -20,14 +20,20 @@ TODO: add schema here
 
 ### Crates and soldering
 
-TODO: documentation about hardware
+TODO:
+* documentation about hardware
+* include PCB sketch
 
 
 ### Local API
 
-TODO
+TODO:
+* a python API to wrap the serial communication with the arduino (maybe use [this](https://github.com/bakercp/PacketSerial) ?)
+* a "smart server" (with priority queue ?) to feed the serial with data from different sources
 
 
 ### Internet API
 
-TODO
+TODO:
+* some web API to feed the server and fetch some metrix from outside
+* a MQTT client to include the matrix in HAL1 (see [project](https://urlab.be/projects/84) and [wiki](https://urlab.be/wiki/hal1/))
