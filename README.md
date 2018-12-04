@@ -11,7 +11,7 @@ See [our incubator (fr)](https://urlab.be/projects/74).
 Structure :
 ---------
 - There is a Club-Mate [crates matrix](#Crates-and-soldering) plug to ...
-- an [arduino reading data](src/README) in serial from a
+- an [arduino reading data](arduino_matrix/README.md) in serial from a
 - raspberry pi (with its [API](#Local-API)) available through
 - the network ([internet API](#Internet-API)).
 
