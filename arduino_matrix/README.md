@@ -19,6 +19,12 @@ Useful commands :
 * `pio run --help` - additional information
 
 
+TODO :
+---------
+* Being able to read/write data on serial to receive row/column/bitmap from serial
+* Store some config about the shape of the matrix in eeprom
+
+
 Doc :
 ---------
 Pixel are store in int of 32 bits `uint32_t`. Each color is on 8 bits:
