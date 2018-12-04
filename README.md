@@ -2,16 +2,32 @@ C.L.U.B.M.A.T.E.
 =======
 ## Cyber Lightbubble Ultra Bright Managing Arbitrary Text Enhanced
 
-We intent to build a large led matrix with Club-Mate crates @urlab.
+We are building a large led matrix with Club-Mate crates @urlab.
+
+![Showing urlab text on C.L.U.B.M.A.T.E.](https://framapic.org/l3dHXUKKojOr/PqEPaVc097nu.jpg)
 
 See [our incubator (fr)](https://urlab.be/projects/74).
 
-
-TODO :
+Structure :
 ---------
-* documentation about hardware and how to build it
-* code some software
-* documentation about software and how to run it
+- There is a Club-Mate [crates matrix](#Crates-and-soldering) plug to ...
+- an [arduino reading data](src/README) in serial from a
+- raspberry pi (with its [API](#Local-API)) available through
+- the network ([internet API](#Internet-API)).
+
+TODO: add schema here
 
 
-![Showing urlab text on C.L.U.B.M.A.T.E.](https://framapic.org/l3dHXUKKojOr/PqEPaVc097nu.jpg)
+### Crates and soldering
+
+TODO: documentation about hardware
+
+
+### Local API
+
+TODO
+
+
+### Internet API
+
+TODO
