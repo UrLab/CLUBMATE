@@ -11,12 +11,21 @@
 #define WHITE 0x000000ff
 #define P1NK  0x69ff0000
 
-sk6812b<D,2> leds;
 
-void draw(uint32_t *pixels, uint8_t len) {
+#ifdef ARDUINO_AVR_UNO
+// UNO => pin 2
+sk6812b<D,2> leds;
+#endif
+
+#ifdef ARDUINO_AVR_MEGA2560
+// MEGA => pin 12
+sk6812<B,6> leds;
+#endif
+
+void draw(uint32_t *pixels, uint16_t len) {
     grbw_t pix[1];
 
-    for (int i=0; i < len; i++) {
+    for (uint16_t i = 0; i < len; i++) {
         pix[0].w = pixels[i];
         pix[0].r = pixels[i] >> 8;
         pix[0].g = pixels[i] >> 16;
@@ -27,30 +36,34 @@ void draw(uint32_t *pixels, uint8_t len) {
 }
 
 // List coordinates of each crate in "wire order"
-coord crate_order[10] = {
-    {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0},
-    {0, 1}, {1, 1}, {2, 1}, {3, 1}, {4, 1},
+coord crate_order[15] = {
+    {0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0},
+    {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1},
+    {0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2},
 };
-CMMatrix cm = CMMatrix(20, 10, crate_order);
+CMMatrix cm = CMMatrix(20, 15, crate_order);
 
-uint32_t column[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-uint32_t row[20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
+uint32_t column[15] = {
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0
+};
+uint32_t row[20] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
 
 void setup() {
-    for (int i=0; i<10; i++) {
-        column[i] = RED;
-    }
 }
 
 void loop() {
-    for (int i=0; i<10; i++) {
+    for (int i=0; i<15; i++) {
         column[i] = RED;
     }
 
     for (int i=0; i < 20; i++) {
         cm.push_right(column);
-        draw(cm.render(), 200);
+        draw(cm.render(), 300);
         delay(100);
     }
 
@@ -58,29 +71,29 @@ void loop() {
         row[i] = GREEN;
     }
 
-    for (int i=0; i < 10; i++) {
+    for (int i=0; i < 15; i++) {
         cm.push_top(row);
-        draw(cm.render(), 200);
+        draw(cm.render(), 300);
         delay(100);
     }
 
-    for (int i=0; i<10; i++) {
+    for (int i=0; i<15; i++) {
         column[i] = BLUE;
     }
 
     for (int i=0; i < 20; i++) {
         cm.push_left(column);
-        draw(cm.render(), 200);
+        draw(cm.render(), 300);
         delay(100);
     }
 
     for (int i=0; i<20; i++) {
-        row[i] = PINK;
+        row[i] = P1NK;
     }
 
-    for (int i=0; i < 10; i++) {
+    for (int i=0; i < 15; i++) {
         cm.push_bottom(row);
-        draw(cm.render(), 200);
+        draw(cm.render(), 300);
         delay(100);
     }
 }
