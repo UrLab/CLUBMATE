@@ -56,6 +56,8 @@ uint32_t row[20] = {
 void setup() {
 }
 
+#define DELAY 100
+
 void loop() {
     for (int i=0; i<15; i++) {
         column[i] = RED;
@@ -64,7 +66,7 @@ void loop() {
     for (int i=0; i < 20; i++) {
         cm.push_right(column);
         draw(cm.render(), 300);
-        delay(100);
+        delay(DELAY);
     }
 
     for (int i=0; i<20; i++) {
@@ -74,7 +76,7 @@ void loop() {
     for (int i=0; i < 15; i++) {
         cm.push_top(row);
         draw(cm.render(), 300);
-        delay(100);
+        delay(DELAY);
     }
 
     for (int i=0; i<15; i++) {
@@ -84,7 +86,7 @@ void loop() {
     for (int i=0; i < 20; i++) {
         cm.push_left(column);
         draw(cm.render(), 300);
-        delay(100);
+        delay(DELAY);
     }
 
     for (int i=0; i<20; i++) {
@@ -94,6 +96,6 @@ void loop() {
     for (int i=0; i < 15; i++) {
         cm.push_bottom(row);
         draw(cm.render(), 300);
-        delay(100);
+        delay(DELAY);
     }
 }
