@@ -1,12 +1,15 @@
 #include <SmartMatrix.h>
 #include "FAB_LED.h"
 
+
+// BLUE RED GREEN WHITE
+
 #define BLACK 0
-#define WHITE 255
-#define RED 65280
-#define GREEN 16711680
-#define BLUE 4278190080
-#define PINK 4278216960
+#define BLUE  0xff000000
+#define RED   0x00ff0000
+#define GREEN 0x0000ff00
+#define WHITE 0x000000ff
+#define P1NK  0x69ff0000
 
 sk6812b<D,2> leds;
 
