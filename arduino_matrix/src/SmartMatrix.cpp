@@ -72,22 +72,18 @@ CMMatrix::CMMatrix(uint8_t width, uint8_t height, coord* crate_order)
 
 uint32_t* CMMatrix::render() {
     uint32_t* led = this->led_array;
-    int i = 0;
     for (
         coord* crate_coord = this->crate_order;
         crate_coord < this->crate_order + this->crate_nbr;
         ++crate_coord
     ) {
         for (coord led_coord : IN_CRATE_ORDER) {
-            int x_ = (crate_coord->x * CRATE_WIDTH) + led_coord.x;
-            int y_ = (crate_coord->y * CRATE_HEIGHT) + led_coord.y;
 
-            uint32_t tmp = mget(x_, y_);
-
-            *led = tmp;
+            *led = mget(
+                    (crate_coord->x * CRATE_WIDTH) + led_coord.x,
+                    (crate_coord->y * CRATE_HEIGHT) + led_coord.y
+            );
             led++;
-
-            i++;
         }
     }
     return this->led_array;
