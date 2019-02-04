@@ -10,6 +10,12 @@ Then compile and upload :
 
 `pio run --target upload`
 
+To specify a device :
+
+`pio run -e uno --target upload`
+
+`pio run -e mega --target upload`
+
 
 Useful commands :
 ---------
