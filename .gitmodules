@@ -1,3 +1,6 @@
 [submodule "arduino_matrix/lib/FAB_LED"]
 	path = arduino_matrix/lib/FAB_LED
 	url = https://github.com/sonyhome/FAB_LED.git
+[submodule "arduino_matrix/lib/PacketSerial"]
+	path = arduino_matrix/lib/PacketSerial
+	url = https://github.com/bakercp/PacketSerial.git
