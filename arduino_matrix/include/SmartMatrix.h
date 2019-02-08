@@ -1,12 +1,7 @@
 #include <Arduino.h>
 
-#ifndef COORD
-#define COORD
-typedef struct {
-    uint8_t x;
-    uint8_t y;
-} coord;
-#endif
+#include "config.h"
+#include "utils.h"
 
 #ifndef MATRIX_CLASS
 #define MATRIX_CLASS

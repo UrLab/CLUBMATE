@@ -1,8 +1,5 @@
 #include "SmartMatrix.h"
-#include "crate.h"
 
-#include <Arduino.h>
-#include <stdlib.h>
 
 RollingMatrix::RollingMatrix(uint8_t width, uint8_t height) {
     this->w = width;
