@@ -28,10 +28,11 @@ class CMMatrix: public RollingMatrix {
   private:
     uint8_t crate_nbr;  // number of crate in matrix
     coord* crate_order;  // X,Y coordinates of each crate in the order of connection
+    coord* in_crate_order;  // X,Y coordinates of each led in a crate
     uint32_t* led_array;
 
   public:
-    CMMatrix(uint8_t width, uint8_t height, coord* crate_order);
+    CMMatrix(uint8_t width, uint8_t height, coord* crate_order, coord* in_crate_order);
 
     uint32_t* render();
 };

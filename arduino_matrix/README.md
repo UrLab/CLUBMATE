@@ -45,9 +45,10 @@ uint8_t blue = pixels >> 24;
 ```
 
 
-* `CMMatrix(uint8_t width, uint8_t height, coord* crate_order);`
+* `CMMatrix(uint8_t width, uint8_t height, coord* crate_order, coord* in_crate_order);`
   * Width/height of the matrix in pixel
   * List coordinates of each crate in "wire order" ex: {{0, 0}, {0, 1}}
+  * List coordinates of each led in a crate in "wire order" ex: {{0, 0}, {0, 1}}
 
 * `uint32_t mget(uint8_t x, uint8_t y);`
   * get pixel at x, y

@@ -60,10 +60,11 @@ void RollingMatrix::push_top(uint32_t* row) {
     this->h_shift = (this->h_shift - 1 + this->h) % this->h;
 }
 
-CMMatrix::CMMatrix(uint8_t width, uint8_t height, coord* crate_order)
+CMMatrix::CMMatrix(uint8_t width, uint8_t height, coord* crate_order, coord* in_crate_order)
     :RollingMatrix(width, height) {
     this->crate_nbr = (width * height) / CRATE_SIZE;
     this->crate_order = crate_order;
+    this->in_crate_order = in_crate_order;
     this->led_array = (uint32_t *) malloc(sizeof(uint32_t) * width * height);
 };
 
@@ -74,11 +75,14 @@ uint32_t* CMMatrix::render() {
         crate_coord < this->crate_order + this->crate_nbr;
         ++crate_coord
     ) {
-        for (coord led_coord : IN_CRATE_ORDER) {
-
+        for (
+                coord* led_coord = this->in_crate_order;
+                led_coord < this->in_crate_order + CRATE_SIZE;
+                ++led_coord
+            ) {
             *led = mget(
-                    (crate_coord->x * CRATE_WIDTH) + led_coord.x,
-                    (crate_coord->y * CRATE_HEIGHT) + led_coord.y
+                    (crate_coord->x * CRATE_WIDTH) + led_coord->x,
+                    (crate_coord->y * CRATE_HEIGHT) + led_coord->y
             );
             led++;
         }
