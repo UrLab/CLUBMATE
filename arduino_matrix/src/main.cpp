@@ -36,6 +36,7 @@ coord in_crate_order[CRATE_SIZE] = {
 };
 
 COBSPacketSerial packetSerial;
+FastCRC16 CRC16;
 CMMatrix cm = CMMatrix(20, 15, crate_order, in_crate_order);
 
 void setup() {
@@ -47,9 +48,8 @@ void loop() {
     packetSerial.update();
 }
 
-void crc_wrap_and_send(uint8_t *data, size_t size) {
-    //TODO tester les bricolages de pointeur #pasSur
-    uint16_t crc = FastCRC16.modbus(data + 2, size - 2);
+void crc_and_send(uint8_t *data, size_t size) {
+    uint16_t crc = CRC16.modbus(data + 2, size - 2);
     data[0] = (uint8_t)((crc & 0xFF00) >> 8);
     data[1] = (uint8_t)( crc & 0x00FF);
 
