@@ -1,4 +1,5 @@
 #include <PacketSerial.h>
+#include <FastCRC.h>
 
 #include "SmartMatrix.h"
 
@@ -44,6 +45,15 @@ void setup() {
 
 void loop() {
     packetSerial.update();
+}
+
+void crc_wrap_and_send(uint8_t *data, size_t size) {
+    //TODO tester les bricolages de pointeur #pasSur
+    uint16_t crc = FastCRC16.modbus(data + 2, size - 2);
+    data[0] = (uint8_t)((crc & 0xFF00) >> 8);
+    data[1] = (uint8_t)( crc & 0x00FF);
+
+    packetSerial.send(data, size);
 }
 
 void onPacketReceived(const uint8_t* buffer, size_t size){

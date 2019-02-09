@@ -4,3 +4,6 @@
 [submodule "arduino_matrix/lib/PacketSerial"]
 	path = arduino_matrix/lib/PacketSerial
 	url = https://github.com/bakercp/PacketSerial.git
+[submodule "arduino_matrix/lib/FastCRC"]
+	path = arduino_matrix/lib/FastCRC
+	url = https://github.com/FrankBoesing/FastCRC.git
