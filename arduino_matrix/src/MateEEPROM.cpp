@@ -1,25 +1,32 @@
 #include <EEPROM.h>
 
-#include "mate_eeprom.h"
+#include "MateEEPROM.h"
 
-coord* _get_range(uint8_t from, uint8_t size) {
+coord* _get_range(uint8_t start, uint8_t size) {
     coord* range = (coord *) malloc(sizeof(coord) * size);
+    coord* tmp = range;
 
-    for (uint8_t ptr = from; ptr <= (ptr + (2 * size)); ptr += 2) {
-        range->x = (uint8_t) EEPROM.read(ptr);
-        range->y = (uint8_t) EEPROM.read(ptr + 1);
+    for (uint8_t ptr = start; ptr < (start + (2 * size)); ptr+=2) {
+        tmp->x = (uint8_t) EEPROM.read(ptr);
+        tmp->y = (uint8_t) EEPROM.read(ptr + 1);
 
-        range++;
+        tmp++;
     }
 
     return range;
 }
 
 void _set_range(coord* values, uint8_t start, uint8_t size) {
-    for (uint8_t ptr = start; ptr <= ptr + (2 * size); ptr += 2) {
+    for (uint8_t ptr = start; ptr < start + (2 * size); ptr += 2) {
         EEPROM.write(ptr, values->x);
         EEPROM.write(ptr + 1, values->y);
+
+        values++;
     }
+}
+
+uint8_t get_crate_size() {
+    return (uint8_t) EEPROM.read(CRATE_SIZE_ADDR);
 }
 
 uint8_t get_crate_width() {
@@ -36,6 +43,10 @@ uint8_t get_crate_height() {
 
 void set_crate_height(uint8_t value) {
     EEPROM.write(CRATE_HEIGHT_ADDR, value);
+}
+
+uint8_t get_matrix_size() {
+    return (uint8_t) EEPROM.read(MATRIX_SIZE_ADDR);
 }
 
 uint8_t get_matrix_width() {

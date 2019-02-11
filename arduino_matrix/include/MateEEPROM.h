@@ -13,6 +13,8 @@
 
 /* Information about a crate.
  */
+uint8_t get_crate_size();
+
 uint8_t get_crate_width();
 void set_crate_width(uint8_t w);
 
@@ -23,6 +25,8 @@ coord* get_crate_shape();
 
 /* Information about the matrix (in number of crate).
  */
+uint8_t get_matrix_size();
+
 uint8_t get_matrix_width();
 void set_matrix_width(uint8_t w);
 
