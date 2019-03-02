@@ -1,8 +1,20 @@
 How the matrix and leds are handled :
 ---------
 Pixel are store in int of 32 bits `uint32_t`. Each color is on 8 bits:
-00000000 00000000 00000000 00000000
-  BLUE    GREEN     RED     WHITE
+<table>
+  <tr>
+    <td>00000000</td>
+    <td>00000000</td>
+    <td>00000000</td>
+    <td>00000000</td>
+  </tr>
+  <tr>
+    <td>BLUE</td>
+    <td>GREEN</td>
+    <td>RED</td>
+    <td>WHITE</td>
+  </tr>
+</table>
 
 ```
 uint8_t white_= pixels;
