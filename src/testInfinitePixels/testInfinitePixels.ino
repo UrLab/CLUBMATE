@@ -4,7 +4,6 @@
 
 #include <math.h>
 #include <FAB_LED.h>
-#include "alpha.h"
 
 #define CRATE_WIDTH 4
 #define CRATE_HEIGHT 5
