@@ -2,6 +2,9 @@
 
 #include "MateEEPROM.h"
 
+
+//TODO use basic memoization on all get to avoid reading EEPROM everytime
+
 MateEEPROM::MateEEPROM() {
       this->crate_shape  = (coord *) malloc(sizeof(coord) * ((uint8_t) EEPROM.read(MATRIX_SIZE_ADDR)));
       this->matrix_shape = (coord *) malloc(sizeof(coord) * ((uint8_t) EEPROM.read(CRATE_SIZE_ADDR)));
@@ -98,12 +101,13 @@ void MateEEPROM::set_shape(coord* crate_shape,  size_t crate_size,
 
 void MateEEPROM::reset_eeprom() {
     /*
-     * TODO: replace with a simpler basic shape (like 1x5)
-     */
-    coord crate_order[15] = {
+    coord crate_order[10] = {
         {0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0},
-        {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1},
-        {0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2},
+        {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1}
+    };
+    */
+    coord crate_order[5] = {
+        {0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0},
     };
 
     coord in_crate_order[20] = {
@@ -113,5 +117,5 @@ void MateEEPROM::reset_eeprom() {
         {3, 3}, {2, 3}, {1, 3}, {0, 3},
         {0, 4}, {1, 4}, {2, 4}, {3, 4},
     };
-    this->set_shape(in_crate_order, 20, crate_order, 15);
+    this->set_shape(in_crate_order, 20, crate_order, 5);
 }

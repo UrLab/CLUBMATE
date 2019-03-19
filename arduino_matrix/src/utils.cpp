@@ -1,7 +1,6 @@
 #include <FAB_LED.h>
 
 #include "utils.h"
-#include "config.h"
 
 #include "MateEEPROM.h"
 
@@ -20,11 +19,10 @@ void draw(uint32_t *pixels, uint16_t len) {
     grbw_t pix[1];
 
     for (uint16_t i = 0; i < len; i++) {
-        // BLUE RED GREEN WHITE
-        pix[0].w = pixels[i];
-        pix[0].r = pixels[i] >> 8;
-        pix[0].g = pixels[i] >> 16;
-        pix[0].b = pixels[i] >> 24;
+        pix[0].r = (uint8_t) pixels[i];
+        pix[0].g = (uint8_t) (pixels[i] >> 8);
+        pix[0].b = (uint8_t) (pixels[i] >> 16);
+        pix[0].w = (uint8_t) (pixels[i] >> 24);
 
         leds.sendPixels(1, pix);
     }
