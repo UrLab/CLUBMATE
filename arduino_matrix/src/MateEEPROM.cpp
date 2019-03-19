@@ -21,8 +21,9 @@ void MateEEPROM::_get_range(coord* mem, uint8_t start, uint8_t size) {
 
 void MateEEPROM::_set_range(coord* mem, uint8_t start, uint8_t size) {
     for (uint8_t ptr = start; ptr < start + (2 * size); ptr += 2) {
-        EEPROM.write(ptr, mem->x);
-        EEPROM.write(ptr + 1, mem->y);
+        // TODO replate 2 with sizeof coord
+        EEPROM.update(ptr, mem->x);
+        EEPROM.update(ptr + 1, mem->y);
 
         mem++;
     }
@@ -37,7 +38,7 @@ uint8_t MateEEPROM::get_crate_width() {
 }
 
 void MateEEPROM::set_crate_width(uint8_t value) {
-    EEPROM.write(CRATE_WIDTH_ADDR, value);
+    EEPROM.update(CRATE_WIDTH_ADDR, value);
 }
 
 uint8_t MateEEPROM::get_crate_height() {
@@ -45,7 +46,7 @@ uint8_t MateEEPROM::get_crate_height() {
 }
 
 void MateEEPROM::set_crate_height(uint8_t value) {
-    EEPROM.write(CRATE_HEIGHT_ADDR, value);
+    EEPROM.update(CRATE_HEIGHT_ADDR, value);
 }
 
 uint8_t MateEEPROM::get_matrix_size() {
@@ -57,7 +58,7 @@ uint8_t MateEEPROM::get_matrix_width() {
 }
 
 void MateEEPROM::set_matrix_width(uint8_t value) {
-    EEPROM.write(MATRIX_WIDTH_ADDR, value);
+    EEPROM.update(MATRIX_WIDTH_ADDR, value);
 }
 
 uint8_t MateEEPROM::get_matrix_height() {
@@ -65,7 +66,7 @@ uint8_t MateEEPROM::get_matrix_height() {
 }
 
 void MateEEPROM::set_matrix_height(uint8_t value) {
-    EEPROM.write(MATRIX_HEIGHT_ADDR, value);
+    EEPROM.update(MATRIX_HEIGHT_ADDR, value);
 }
 
 coord* MateEEPROM::get_matrix_shape() {
@@ -89,11 +90,11 @@ coord* MateEEPROM::get_crate_shape() {
 void MateEEPROM::set_shape(coord* crate_shape,  size_t crate_size,
                            coord* matrix_shape, size_t matrix_size) {
 
-    EEPROM.write(CRATE_SIZE_ADDR, crate_size);
-    EEPROM.write(MATRIX_SIZE_ADDR, matrix_size);
+    EEPROM.update(CRATE_SIZE_ADDR, crate_size);
+    EEPROM.update(MATRIX_SIZE_ADDR, matrix_size);
 
-    uint8_t matrix_start_addr = DYN_MEMORY_ADDR + (2 * crate_size) + 1;
-    EEPROM.write(MATRIX_START_ADDR, matrix_start_addr);
+    uint8_t matrix_start_addr = DYN_MEMORY_ADDR + (2 * crate_size) + 1; //TODO put size_of(coord)
+    EEPROM.update(MATRIX_START_ADDR, matrix_start_addr);
 
     this->_set_range(crate_shape, DYN_MEMORY_ADDR, crate_size);
     this->_set_range(matrix_shape, matrix_start_addr, matrix_size);
