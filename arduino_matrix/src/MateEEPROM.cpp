@@ -6,8 +6,8 @@
 //TODO use basic memoization on all get to avoid reading EEPROM everytime
 
 MateEEPROM::MateEEPROM() {
-      this->crate_shape  = (coord *) malloc(sizeof(coord) * ((uint8_t) EEPROM.read(MATRIX_SIZE_ADDR)));
-      this->matrix_shape = (coord *) malloc(sizeof(coord) * ((uint8_t) EEPROM.read(CRATE_SIZE_ADDR)));
+      this->matrix_shape = (coord *) malloc(sizeof(coord) * ((uint8_t) EEPROM.read(MATRIX_SIZE_ADDR)));
+      this->crate_shape  = (coord *) malloc(sizeof(coord) * ((uint8_t) EEPROM.read(CRATE_SIZE_ADDR)));
 }
 
 void MateEEPROM::_get_range(coord* mem, uint8_t start, uint8_t size) {
