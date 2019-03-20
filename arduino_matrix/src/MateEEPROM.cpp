@@ -10,7 +10,7 @@ MateEEPROM::MateEEPROM() {
       this->crate_shape  = (coord *) malloc(sizeof(coord) * ((uint8_t) EEPROM.read(CRATE_SIZE_ADDR)));
 }
 
-void MateEEPROM::_get_range(coord* mem, uint8_t start, uint8_t size) {
+void MateEEPROM::_get_range(coord* mem, uint8_t start, size_t size) {
     for (uint8_t ptr = start; ptr < (start + (2 * size)); ptr+=2) {
         mem->x = (uint8_t) EEPROM.read(ptr);
         mem->y = (uint8_t) EEPROM.read(ptr + 1);
@@ -19,9 +19,8 @@ void MateEEPROM::_get_range(coord* mem, uint8_t start, uint8_t size) {
     }
 }
 
-void MateEEPROM::_set_range(coord* mem, uint8_t start, uint8_t size) {
-    for (uint8_t ptr = start; ptr < start + (2 * size); ptr += 2) {
-        // TODO replate 2 with sizeof coord
+void MateEEPROM::_set_range(coord* mem, uint8_t start, size_t size) {
+    for (uint8_t ptr = start; ptr < start + (sizeof(coord) * size); ptr += 2) {
         EEPROM.update(ptr, mem->x);
         EEPROM.update(ptr + 1, mem->y);
 
@@ -93,7 +92,7 @@ void MateEEPROM::set_shape(coord* crate_shape,  size_t crate_size,
     EEPROM.update(CRATE_SIZE_ADDR, crate_size);
     EEPROM.update(MATRIX_SIZE_ADDR, matrix_size);
 
-    uint8_t matrix_start_addr = DYN_MEMORY_ADDR + (2 * crate_size) + 1; //TODO put size_of(coord)
+    uint8_t matrix_start_addr = DYN_MEMORY_ADDR + (sizeof(coord) * crate_size) + 1;
     EEPROM.update(MATRIX_START_ADDR, matrix_start_addr);
 
     this->_set_range(crate_shape, DYN_MEMORY_ADDR, crate_size);

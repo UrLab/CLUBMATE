@@ -27,8 +27,8 @@ class MateEEPROM {
       coord* crate_shape;
       coord* matrix_shape;
 
-      void _set_range(coord* values, uint8_t start, uint8_t size);
-      void _get_range(coord* mem, uint8_t start, uint8_t size);
+      void _set_range(coord* values, uint8_t start, size_t size);
+      void _get_range(coord* mem, uint8_t start, size_t size);
 
   public:
       MateEEPROM();
