@@ -50,7 +50,7 @@ void RollingMatrix::mset(uint8_t x, uint8_t y, uint8_t r, uint8_t g, uint8_t b, 
 void RollingMatrix::fill(uint32_t v) {
     uint32_t* m = this->matrix;
     for (; m < this->matrix + this->get_leds_nbr();) {
-        m[0] = v;
+        *m = v;
         m++;
     }
 }
