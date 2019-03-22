@@ -9,9 +9,9 @@ Pixel are store in int of 32 bits `uint32_t`. Each color is on 8 bits:
     <td>00000000</td>
   </tr>
   <tr>
-    <td>BLUE</td>
-    <td>GREEN</td>
     <td>RED</td>
+    <td>GREEN</td>
+    <td>BLUE</td>
     <td>WHITE</td>
   </tr>
 </table>
